@@ -1,0 +1,73 @@
+a pattern matching algorithm
+====
+abaabaxabaaba nvkfdjv slmcls
+dfvdf
+==== 
+
+vfd dfvvd fdv abaaba
+vdf
+====
+kndfkjdnvka
+====
+abacaabadcabacabaabb
+====
+Pada tugas ini, kami diminta untuk mengimplementasikan system call pada kernel linux 3.6  ke atas. Tugas ini dibuat dalam bahasa pemrograman C dan dengan compiler gcc. Tugas ini dapat dikerjakan pada lingkungan virtualisasi (misalnya VMWare atau VirtualBox), maupun langsung pada PC. Adapun poin-poin tugas ini secara spesifik adalah sebagai berikut.
+1.	Membuat sebuah system call untuk melakukan enkripsi dan dekripsi dengan Caesarian chipper dengan  prototype sebagai berikut:
+
+// fungsi enkripsi
+asmlinkage int sys_caesarenc(char *src, char *dest, char key);
+// fungsi dekripsi
+asmlinkage int sys_caesardec(char *src, char *dest, char key);
+
+dengan source adalah string sumber, dest adalah tempat menyimpan string hasil, dan key adalah besar pergeseran. Kedua fungsi tersebut mengembalikan 0. Enkripsi dan dekripsi Caesarian chipper dilakukan dengan cara:
+
+dest[i] = (src[i] + key) % 256; // enkripsi
+dest[i] = (src[i] - key) % 256; // dekripsi
+
+2.	Membuat sebuah test program yang berjalan pada user space yang memanggil kedua system call tersebut.
+
+3.	(Bonus) Membuat sebuah system call untuk melakukan “komunikasi” primitif antar user proses. “Komunikasi” ini dilakukan dengan cara menyimpan sebuah int di memori (global variable) pada kernel space. Prototype system call tersebut adalah sebagai berikut.
+
+// fungsi pemberian nilai
+asmlinkage int sys_setmyint(int value);
+// fungsi pengambilan nilai
+asmlinkage int sys_getmyint(int *dest);
+
+dengan value adalah int yang ingin disimpan, dan dest adalah tempat penerimaan int yg diambil. Setmyint mengembalikan:
+-  1 jika data berhasil diubah (data yang lama sudah diambil dengan getmyint) 
+-  0 jika tidak diubah (data yang lama masih ada)
+
+Getmyint mengembalikan:
+-  1 jika isi dest berubah (ada data baru dari setmyint)
+-  0 jika isi dest juga tidak diubah (tidak ada data baru)
+
+Selain itu juga membuat dua buah test program, program pertama melakukan “pengiriman” data (set integer), dan program kedua melakukan “penerimaan” data (get integer).
+
+
+
+
+
+BAB 2
+Dasar Teori
+
+1.	Kernel Linux
+Dalam ilmu komputer, kernel adalah suatu perangkat lunak yang menjadi bagian utama dari sebuah sistem operasi. Tugasnya melayani bermacam program aplikasi untuk mengakses perangkat keraskomputer secara aman. Karena akses terhadap perangkat keras terbatas, sedangkan ada lebih dari satu program yang harus dilayani dalam waktu yang bersamaan, maka kernel juga bertugas untuk mengatur kapan dan berapa lama suatu program dapat menggunakan satu bagian perangkat keras tersebut. Hal tersebut dinamakan sebagai multiplexing.
+Akses kepada perangkat keras secara langsung merupakan masalah yang kompleks, oleh karena itu kernel biasanya mengimplementasikan sekumpulan abstraksi hardware. Abstraksi-abstraksi tersebut merupakan sebuah cara untuk menyembunyikan kompleksitas, dan memungkinkan akses kepada perangkat keras menjadi mudah dan seragam. Sehingga abstraksi pada akhirnya memudahkan pekerjaanprogramer.
+Kernel Linux adalahkernel yang digunakan dalam sistem operasi GNU/Linux. Kernel ini merupakan turunan dari keluarga sistem operasiUNIX, dirilis dengan menggunakan lisensi GNU General Public License (GPL), dan dikembangkan oleh pemrogram di seluruh dunia. Linux merupakan contoh utama dari perangkat lunak bebas untuk dimodifikasi siapapun.
+
+2.	System call
+System call adalah antarmuka proses (program yang sedang berjalan / run)  dengan Operating System.. Umumnya System Call menggunakan bahasa C, assembly,  dan C++. Jenis-jenis System Call, yaitu :
+•	Process control: mengontrol proses yang berjalan 
+•	File management: memanage file-file yang berjalan pada program
+•	Device management: memanage device apa saja yang digunakan pada program
+•	Information Maintenance: sebagai penghubung antara user dengan sistem operasi dari berbagai informasi.
+•	Communication: pertukaran informasi dari proses yang berjalan dengan sistem operasi.
+
+
+
+
+Gambar disamping adalah gambaran posisi system call yang terdapat dalam sistem operasi UNIX.
+
+
+
+

@@ -1,0 +1,11 @@
+Kategori KECELAKAAN
+Jumlah : 0
+Lokasi : 
+Kategori MACET
+Jumlah : 0
+Lokasi : 
+Kategori TUTUP
+Jumlah : 0
+Lokasi : 
+Kategori UNKNOWN
+Jumlah  : 0
